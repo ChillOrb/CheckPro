@@ -21,11 +21,12 @@ import joblib
 from sklearn.ensemble import RandomForestClassifier
 
 
-def cutit(s, n):
-    return s[n:]
+# def cutit(s, n):
+# return s[n:]
 
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 
 @app.route('/')
@@ -55,9 +56,9 @@ def upload_file():
         res = clf.predict([pe_features])[0]
         #########################################
         #print('The file %s is %s' % (os.path.basename(sys.argv[1]),['malicious', 'legitimate'][res]))
-       
-         return render_template('result.html', prediction=['legitimate', 'malicious'][res])
-          
+
+        return render_template('result.html', prediction=['legitimate', 'malicious'][res])
+
 
 # The phrase File Entropy is used to measure the amount of data which is present in a selected file. For example, if you have some files and desire to calculate the entropy value for that, then it will be very simple by accessing the methods of File Entropy and its calculation process.
 def get_entropy(data):
