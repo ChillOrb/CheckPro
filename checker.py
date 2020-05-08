@@ -30,7 +30,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index1.html')
 
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -55,15 +55,9 @@ def upload_file():
         res = clf.predict([pe_features])[0]
         #########################################
         #print('The file %s is %s' % (os.path.basename(sys.argv[1]),['malicious', 'legitimate'][res]))
-        flag = False
-        if flag == True:
-            return render_template('result.html', prediction=['legitimate', 'malicious'][res])
-            flag == False
-        elif flag == False:
-            return render_template('result.html', prediction=['malicious', 'malicious'][res])
-        else:
-            return render_template('result.html', prediction=['legitimate', 'legitimate'][res])
-
+       
+         return render_template('result.html', prediction=['legitimate', 'malicious'][res])
+          
 
 # The phrase File Entropy is used to measure the amount of data which is present in a selected file. For example, if you have some files and desire to calculate the entropy value for that, then it will be very simple by accessing the methods of File Entropy and its calculation process.
 def get_entropy(data):
