@@ -10,6 +10,7 @@ from sklearn.feature_selection import SelectFromModel
 import joblib
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import confusion_matrix
+from sklearn import tree
 
 data = pd.read_csv('data.csv', sep='|')  # generate df as data
 # now droping some coloumns as axis 1(mean coloumn) and will show the values in the rows
@@ -34,7 +35,7 @@ print('%i features identified as important:' %
       nb_features)  # as mentioned above
 
 
-# important features sored
+# important features sorted
 indices = np.argsort(fsel.feature_importances_)[::-1][:nb_features]
 for f in range(nb_features):
     print("%d. feature %s (%f)" % (
@@ -45,24 +46,30 @@ for f in range(nb_features):
 for f in sorted(np.argsort(fsel.feature_importances_)[::-1][:nb_features]):
     features.append(data.columns[2+f])
 
+print(features)
+
 # Algorithm comparison
 algorithms = {
-    "DecisionTree": tree.DecisionTreeClassifier(max_depth=10),
     # The max_depth parameter denotes maximum depth of the tree.
 
-    # In case, of random forest, these ensemble classifiers are            the randomly created decision trees. Each decision tree is a single classifier and the target prediction is based on            the majority voting method.
+    # In case, of random forest, these ensemble classifiers are
+    #    the randomly created decision trees. Each decision tree is a single classifier and the target prediction is based on
+    #     the majority voting method.
     "RandomForest": ske.RandomForestClassifier(n_estimators=50),
     # n_estimators ==The number of trees in the forest.
 
     "GradientBoosting": ske.GradientBoostingClassifier(n_estimators=50),
     "AdaBoost": ske.AdaBoostClassifier(n_estimators=100),
     # Ada mean Adaptive
-    # Both are boosting algorithms which means that they convert a set of weak learners into a single strong learner. They            both initialize a strong learner (usually a decision tree) and iteratively create a weak learner that is added to the            strong learner. They differ on how they create the weak learners during the iterative process.
+    # Both are boosting algorithms which means that they convert a set of weak learners into a single strong learner. They
+    #    both initialize a strong learner (usually a decision tree) and iteratively create a weak learner that is added to the
+    #        strong learner. They differ on how they create the weak learners during the iterative process.
 
-    "GNB": GaussianNB()
-    # Bayes theorem is based on conditional probability. The conditional probability helps us calculating the probability             that something will happen
+    "GNB": GaussianNB(),
+    # Bayes theorem is based on conditional probability. The conditional probability helps us calculating the probability
+    #        that something will happen
+    "DecisionTree": tree.DecisionTreeClassifier(max_depth=10)
 }
-
 results = {}
 print("\nNow testing algorithms")
 for algo in algorithms:
@@ -72,22 +79,29 @@ for algo in algorithms:
     print("%s : %f %%" % (algo, score*100))
     results[algo] = score
 
+tree.plot_tree(clf)
+
 winner = max(results, key=results.get)
 print('\nWinner algorithm is %s with a %f %% success' %
       (winner, results[winner]*100))
+
 
 # Save the algorithm and the feature list for later predictions
 print('Saving algorithm and feature list in classifier directory...')
 # Persist an arbitrary Python object into one file.
 joblib.dump(algorithms[winner], 'classifier/classifier.pkl')
 open('classifier/features.pkl', 'wb').write(pickle.dumps(features))
-# joblib works especially well with NumPy arrays which are used by sklearn so depending on the classifier type you use you might have performance and size benefits using joblib.Otherwise pickle does work correctly so saving a trained classifier and loading it again will produce the same results no matter which of the serialization libraries you use
+# joblib works especially well with NumPy arrays which are used by sklearn so depending on the classifier type you use you might
+# have performance and size benefits using joblib.Otherwise pickle does work correctly so saving a trained classifier and loading
+# it again will produce the same results no matter which of the serialization libraries you use
 print('Saved')
 
 # Identify false and true positive rates
 clf = algorithms[winner]
 res = clf.predict(X_test)
 mt = confusion_matrix(y_test, res)
-# A confusion matrix, also known as an error matrix,[4] is a specific table layout that allows visualization of the performance of an algorithm, typically a supervised learning.
+print(mt)
+# A confusion matrix, also known as an error matrix,[4] is a specific table layout that allows visualization
+# of the performance of an algorithm, typically a supervised learning.
 print("False positive rate : %f %%" % ((mt[0][1] / float(sum(mt[0])))*100))
 print('False negative rate : %f %%' % ((mt[1][0] / float(sum(mt[1]))*100)))
