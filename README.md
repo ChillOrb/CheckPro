@@ -17,10 +17,12 @@ git clone https://github.com/rishu2403/CheckPro.git
 
 To install the requirements, simply go into the requirements.txt file dir, and run 
 
-```py -m pip install -r requirements.txt
+```
+py -m pip install -r requirements.txt
+
 ```
 
-## Features
+# Features
 
 * Uplaod an exe file from your local system and run malware analysis.
 * Built a blog web application for blog users to create, edit and manage blogs using Flask.
@@ -28,7 +30,7 @@ To install the requirements, simply go into the requirements.txt file dir, and r
 * Used five ML algorithms, achieved 99.4 % accuracy in feature selection.
 * Characterized PE files as ‘Legitimate’ or ‘Malicious’ by allowing users to upload .exe files to UI.
 
-# Project report and PPT 
+## Project report and PPT 
 As this was university project, I have also included a powerpoint presentation and a project report to be used by anyone who is interested. 
 
 ## Contributing
