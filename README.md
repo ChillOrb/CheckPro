@@ -33,7 +33,8 @@ py -m pip install -r requirements.txt
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/34675136/110869116-aaebc380-827e-11eb-9370-90b972f43f5d.png)
-![Uploading image.png…]()
+![image](https://user-images.githubusercontent.com/34675136/110870471-5f86e480-8281-11eb-947f-7dfa7d72646b.png)
+
 
 ## Project report and PPT 
 As this was university project, I have also included a powerpoint presentation and a project report to be used by anyone who is interested. 
