@@ -29,8 +29,11 @@ py -m pip install -r requirements.txt
 * Used static analyses and feature detection of PE files using entropy calculation to build and train model.
 * Used five ML algorithms, achieved 99.4 % accuracy in feature selection.
 * Characterized PE files as ‘Legitimate’ or ‘Malicious’ by allowing users to upload .exe files to UI.
-![image](https://user-images.githubusercontent.com/34675136/110869116-aaebc380-827e-11eb-9370-90b972f43f5d.png)
 
+# Screenshots
+
+![image](https://user-images.githubusercontent.com/34675136/110869116-aaebc380-827e-11eb-9370-90b972f43f5d.png)
+![Uploading image.png…]()
 
 ## Project report and PPT 
 As this was university project, I have also included a powerpoint presentation and a project report to be used by anyone who is interested. 
